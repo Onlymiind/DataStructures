@@ -1,3 +1,3 @@
-module github.com/Onlymiind/DataStructures/DataStructures/list
+module github.com/Onlymiind/DataStructures/list
 
 go 1.16

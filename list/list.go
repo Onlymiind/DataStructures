@@ -1,6 +1,9 @@
 package custom_list
 
-import "strconv"
+import (
+	"errors"
+	"fmt"
+)
 
 type ListIterator struct {
 }
@@ -10,40 +13,60 @@ func (*ListIterator) Inc() {
 }
 
 type ListNode struct {
-	Value int
+	Value interface{}
 	Next  *ListNode
 	Prev  *ListNode
 }
 
-type List struct {
+type List interface {
+	PushBack(interface{})
+	PushFront(interface{})
+	Find(interface{}) (interface{}, error)
+	String() string
+}
+
+type listImpl struct {
 	Size uint32
 	Head ListNode
 }
 
 func NewList() List {
-	var l List
+	l := new(listImpl)
 	l.Head.Next = &l.Head
 	l.Head.Prev = &l.Head
 	return l
 }
 
-func (list *List) PushBack(val int) {
+func (list *listImpl) PushBack(val interface{}) {
 	list.Head.Prev = &ListNode{Value: val, Next: &list.Head, Prev: list.Head.Prev}
 }
 
-func (list *List) PushFront(val int) {
+func (list *listImpl) PushFront(val interface{}) {
 	list.Head.Next = &ListNode{Value: val, Next: list.Head.Next, Prev: list.Head.Prev}
 }
 
-func (list *List) String() string {
-	var result string
+func (list *listImpl) Find(val interface{}) (interface{}, error) {
 	for it := list.Head.Next; it != &list.Head; it = it.Next {
-		result = result + strconv.FormatInt(int64(it.Value), 10)
+		if it.Value == val {
+			return it.Value, nil
+		}
 	}
-	return result
+	return nil, errors.New("Not found")
 }
 
-func foo() {
-	var l List = NewList()
-	l.PushBack(1)
+func (list *listImpl) Begin()
+
+func (list *listImpl) End()
+
+func (list *listImpl) Insert()
+
+func (list *listImpl) String() string {
+	var result string
+	for it := list.Head.Next; it != &list.Head; it = it.Next {
+		if it != list.Head.Next {
+			result += " "
+		}
+		result += fmt.Sprintf("%v", it.Value)
+	}
+	return result
 }
