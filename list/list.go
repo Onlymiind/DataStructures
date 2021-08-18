@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"iterator"
+	"github.com/Onlymiind/DataStructures/iterator"
 )
 
 type intIterator struct {
