@@ -28,7 +28,7 @@ func (it *intIterator) Set(val interface{}) {
 	it.Node.Value = value
 }
 
-func (it *intIterator) Equal(other Iterator) bool {
+func (it *intIterator) Equal(other iterator.Iterator) bool {
 	other_it := other.(*intIterator)
 	return it.Node == other.Node
 }
