@@ -73,7 +73,7 @@ func (list *intList) PushBack(val interface{}) {
 
 func (list *intList) PushFront(val interface{}) {
 	value := val.(int)
-	temp := &ListNode{Value: value, Next: list.Head.Next, Prev: list.Head.Prev}
+	temp := &ListNode{Value: value, Next: list.Head.Next, Prev: &list.Head}
 	list.Head.Next.Prev = temp
 	list.Head.Next = temp
 	list.ElemCount++
