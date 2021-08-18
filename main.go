@@ -26,7 +26,10 @@ func Fibonacci(n int) int {
 func main() {
 	l := list.NewIntList()
 	for i := 0; i <= 100; i++ {
+		fmt.Println(i)
 		l.PushBack(i)
 	}
-	fmt.Println(l.String())
+	for it := l.Begin(); it != l.End(); it.Inc() {
+		fmt.Println(it.Get())
+	}
 }

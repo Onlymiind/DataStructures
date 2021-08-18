@@ -43,6 +43,8 @@ type List interface {
 	Clear()
 	Size() uint64
 	String() string
+	Begin() iterator.Iterator
+	End() iterator.Iterator
 }
 
 type intList struct {
