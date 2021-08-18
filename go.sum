@@ -1,5 +1,7 @@
 github.com/Onlymiind/DataStructures/iterator v0.0.0-20210818092630-1a78a801299b h1:nmFcYQDEax6SLtceVXOhQKwo6ycJBSqwEXkrM4skNKA=
 github.com/Onlymiind/DataStructures/iterator v0.0.0-20210818092630-1a78a801299b/go.mod h1:+0LV+/wRr4sPRXeBKT8dT4XYYOQmo3/GCeDSnLNHE7U=
+github.com/Onlymiind/DataStructures/iterator v0.0.0-20210818115742-9bb199f35819 h1:5s3TsldNATDmGzuUyOzhWCkS1AvT037MFeMyHHR0lq8=
+github.com/Onlymiind/DataStructures/iterator v0.0.0-20210818115742-9bb199f35819/go.mod h1:+0LV+/wRr4sPRXeBKT8dT4XYYOQmo3/GCeDSnLNHE7U=
 github.com/Onlymiind/DataStructures/list v0.0.0-20210818100037-5bb78251b41e h1:/b/bo8VFT5F8cTj2YeZq6ESlJB/S/kLB5LM4Hzbrnqo=
 github.com/Onlymiind/DataStructures/list v0.0.0-20210818100037-5bb78251b41e/go.mod h1:xjIPpe6xyHJhZJGa4WKta9HANoYhC9LvSdpO6DK/jjo=
 github.com/Onlymiind/DataStructures/list v0.0.0-20210818101037-056aa31dee1f h1:IsTsBB5/Uv/4YNvyNTXW4rMdk99F5fKH/hA4Bc8Wjxk=
@@ -8,3 +10,9 @@ github.com/Onlymiind/DataStructures/list v0.0.0-20210818101228-e9a4422591ba h1:U
 github.com/Onlymiind/DataStructures/list v0.0.0-20210818101228-e9a4422591ba/go.mod h1:xjIPpe6xyHJhZJGa4WKta9HANoYhC9LvSdpO6DK/jjo=
 github.com/Onlymiind/DataStructures/list v0.0.0-20210818113937-a19ef177be2f h1:qcZhtYpjliTxKUkI5QwaKiZFp6RMr/HJL1K5lsc4B+Q=
 github.com/Onlymiind/DataStructures/list v0.0.0-20210818113937-a19ef177be2f/go.mod h1:xjIPpe6xyHJhZJGa4WKta9HANoYhC9LvSdpO6DK/jjo=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818120053-12bbc986ebeb h1:wg0pV768E9mNnXK4NI7FBbHu0qttV135GWENGr7S/Dk=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818120053-12bbc986ebeb/go.mod h1:xjIPpe6xyHJhZJGa4WKta9HANoYhC9LvSdpO6DK/jjo=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818120742-ae74d5facf31 h1:YFH2z5gkzrmOFyco5WZuqt9ancxCyqIq0rzPnVQptg0=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818120742-ae74d5facf31/go.mod h1:xjIPpe6xyHJhZJGa4WKta9HANoYhC9LvSdpO6DK/jjo=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818121245-506da19cc713 h1:/73bwHjq+TLUspVWR004AnboLoEJ9rcRK9u78N6wA60=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818121245-506da19cc713/go.mod h1:xjIPpe6xyHJhZJGa4WKta9HANoYhC9LvSdpO6DK/jjo=
