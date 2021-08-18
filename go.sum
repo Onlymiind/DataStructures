@@ -2,3 +2,7 @@ github.com/Onlymiind/DataStructures/iterator v0.0.0-20210818092630-1a78a801299b 
 github.com/Onlymiind/DataStructures/iterator v0.0.0-20210818092630-1a78a801299b/go.mod h1:+0LV+/wRr4sPRXeBKT8dT4XYYOQmo3/GCeDSnLNHE7U=
 github.com/Onlymiind/DataStructures/list v0.0.0-20210818100037-5bb78251b41e h1:/b/bo8VFT5F8cTj2YeZq6ESlJB/S/kLB5LM4Hzbrnqo=
 github.com/Onlymiind/DataStructures/list v0.0.0-20210818100037-5bb78251b41e/go.mod h1:xjIPpe6xyHJhZJGa4WKta9HANoYhC9LvSdpO6DK/jjo=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818101037-056aa31dee1f h1:IsTsBB5/Uv/4YNvyNTXW4rMdk99F5fKH/hA4Bc8Wjxk=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818101037-056aa31dee1f/go.mod h1:xjIPpe6xyHJhZJGa4WKta9HANoYhC9LvSdpO6DK/jjo=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818101228-e9a4422591ba h1:URF2X8seJIMiqb4Zio1A/viVBjbLmQUkBrDKE29nacw=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818101228-e9a4422591ba/go.mod h1:xjIPpe6xyHJhZJGa4WKta9HANoYhC9LvSdpO6DK/jjo=

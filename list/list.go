@@ -64,9 +64,6 @@ func (list *intList) PushBack(val interface{}) {
 	temp := &ListNode{Value: value, Next: &list.Head, Prev: list.Head.Prev}
 	list.Head.Prev.Next = temp
 	list.Head.Prev = temp
-	if(list.ElemCount == 0) {
-		list.Head.Next = list.Head.Prev
-	}
 	list.ElemCount++
 }
 
@@ -75,9 +72,6 @@ func (list *intList) PushFront(val interface{}) {
 	temp := &ListNode{Value: value, Next: list.Head.Next, Prev: list.Head.Prev}
 	list.Head.Next.Prev = temp
 	list.Head.Next = temp
-	if(list.ElemCount == 0) {
-		list.Head.Prev = list.Head.Next
-	}
 	list.ElemCount++
 }
 
