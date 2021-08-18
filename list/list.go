@@ -1,7 +1,6 @@
 package list
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/Onlymiind/DataStructures/iterator"
@@ -42,7 +41,7 @@ type ListNode struct {
 type List interface {
 	PushBack(interface{})
 	PushFront(interface{})
-	Find(interface{}) (interface{}, error)
+	Find(interface{}) iterator.Iterator
 	Insert(iterator.Iterator, interface{})
 	Erase(iterator.Iterator)
 	Clear()
@@ -80,13 +79,13 @@ func (list *intList) PushFront(val interface{}) {
 	list.ElemCount++
 }
 
-func (list *intList) Find(val interface{}) (interface{}, error) {
+func (list *intList) Find(val interface{}) iterator.Iterator {
 	for it := list.Begin(); !it.Equal(list.End()); it.Inc() {
 		if it.Get() == val {
-			return it.Get(), nil
+			return it
 		}
 	}
-	return nil, errors.New("Not found")
+	return list.End()
 }
 
 func (list *intList) Begin() iterator.Iterator {
