@@ -1,0 +1,4 @@
+github.com/Onlymiind/DataStructures/iterator v0.0.0-20210818092630-1a78a801299b h1:nmFcYQDEax6SLtceVXOhQKwo6ycJBSqwEXkrM4skNKA=
+github.com/Onlymiind/DataStructures/iterator v0.0.0-20210818092630-1a78a801299b/go.mod h1:+0LV+/wRr4sPRXeBKT8dT4XYYOQmo3/GCeDSnLNHE7U=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818092630-1a78a801299b h1:uaRWVGT40CZ81ny0AABYwSZFfT7po4KB0RyOybwEh5Y=
+github.com/Onlymiind/DataStructures/list v0.0.0-20210818092630-1a78a801299b/go.mod h1:jv+DPK9qffFucoUICCPcg+n6rc71OGaYHF1dDpHo6Ao=

@@ -1,10 +1,10 @@
-package custom_list
+package list
 
 import (
 	"errors"
 	"fmt"
 
-	"github.com/Onlymiind/DataStructures/iterator"
+	"iterator"
 )
 
 type intIterator struct {
