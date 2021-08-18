@@ -30,7 +30,7 @@ func (it *intIterator) Set(val interface{}) {
 
 func (it *intIterator) Equal(other iterator.Iterator) bool {
 	other_it := other.(*intIterator)
-	return it.Node == other.Node
+	return it.Node == other_it.Node
 }
 
 type ListNode struct {
@@ -82,8 +82,8 @@ func (list *intList) PushFront(val interface{}) {
 
 func (list *intList) Find(val interface{}) (interface{}, error) {
 	for it := list.Begin(); !it.Equal(list.End()); it.Inc() {
-		if it.Value == val {
-			return it.Value, nil
+		if it.Get() == val {
+			return it.Get(), nil
 		}
 	}
 	return nil, errors.New("Not found")
