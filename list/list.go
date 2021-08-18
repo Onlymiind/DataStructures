@@ -3,13 +3,29 @@ package custom_list
 import (
 	"errors"
 	"fmt"
+
+	"github.com/Onlymiind/DataStructures/iterator"
 )
 
-type ListIterator struct {
+type intIterator struct {
+	Node *ListNode
 }
 
-func (*ListIterator) Inc() {
+func (it *intIterator) Inc() {
+	it.Node = it.Node.Next
+}
 
+func (it *intIterator) Dec() {
+	it.Node = it.Node.Prev
+}
+
+func (it *intIterator) Get() interface{} {
+	return it.Node.Value
+}
+
+func (it *intIterator) Set(val interface{}) {
+	value := val.(int)
+	it.Node.Value = value
 }
 
 type ListNode struct {
@@ -22,30 +38,44 @@ type List interface {
 	PushBack(interface{})
 	PushFront(interface{})
 	Find(interface{}) (interface{}, error)
+	Insert(iterator.Iterator, interface{})
+	Erase(iterator.Iterator)
+	Clear()
+	Size() uint64
 	String() string
 }
 
-type listImpl struct {
-	Size uint32
+type intList struct {
+	ElemCount uint64
 	Head ListNode
 }
 
-func NewList() List {
-	l := new(listImpl)
+func NewIntList() List {
+	l := new(intList)
 	l.Head.Next = &l.Head
 	l.Head.Prev = &l.Head
 	return l
 }
 
-func (list *listImpl) PushBack(val interface{}) {
+func (list *intList) PushBack(val interface{}) {
 	list.Head.Prev = &ListNode{Value: val, Next: &list.Head, Prev: list.Head.Prev}
+	if(list.ElemCount == 0) {
+		list.Head.Next = list.Head.Prev
+	}
+	list.ElemCount++
 }
 
-func (list *listImpl) PushFront(val interface{}) {
-	list.Head.Next = &ListNode{Value: val, Next: list.Head.Next, Prev: list.Head.Prev}
+func (list *intList) PushFront(val interface{}) {
+	value := val.(int)
+
+	list.Head.Next = &ListNode{Value: value, Next: list.Head.Next, Prev: list.Head.Prev}
+	if(list.ElemCount == 0) {
+		list.Head.Prev = list.Head.Next
+	}
+	list.ElemCount++
 }
 
-func (list *listImpl) Find(val interface{}) (interface{}, error) {
+func (list *intList) Find(val interface{}) (interface{}, error) {
 	for it := list.Head.Next; it != &list.Head; it = it.Next {
 		if it.Value == val {
 			return it.Value, nil
@@ -54,19 +84,44 @@ func (list *listImpl) Find(val interface{}) (interface{}, error) {
 	return nil, errors.New("Not found")
 }
 
-func (list *listImpl) Begin()
+func (list *intList) Begin() iterator.Iterator {
+	return &intIterator{list.Head.Next}
+}
 
-func (list *listImpl) End()
+func (list *intList) End() iterator.Iterator {
+	return &intIterator{&list.Head}
+}
 
-func (list *listImpl) Insert()
+func (list *intList) Insert(before iterator.Iterator, val interface{}) {
+	pos := before.(*intIterator)
+	value := val.(int)
+	temp := &ListNode{Value: value, Next : pos.Node, Prev : pos.Node.Prev}
+	pos.Node.Prev.Next = temp
+}
 
-func (list *listImpl) String() string {
+func (list *intList) Erase(at iterator.Iterator) {
+	pos := at.(*intIterator)
+	pos.Node.Prev.Next = pos.Node.Next
+	pos.Node.Next.Prev = pos.Node.Prev
+}
+
+func (list *intList) Clear() {
+	list.Head.Next = &list.Head
+	list.Head.Prev = &list.Head
+	list.ElemCount = 0
+}
+
+func (list *intList) Size() uint64 {
+	return list.ElemCount
+}
+
+func (list *intList) String() string {
 	var result string
-	for it := list.Head.Next; it != &list.Head; it = it.Next {
-		if it != list.Head.Next {
+	for it := list.Begin(); it != list.End(); it.Inc() {
+		if it != list.Begin() {
 			result += " "
 		}
-		result += fmt.Sprintf("%v", it.Value)
+		result += fmt.Sprintf("%v", it.Get())
 	}
 	return result
 }

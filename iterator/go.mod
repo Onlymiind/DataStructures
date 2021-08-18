@@ -1,3 +1,3 @@
-module github.com/Onlymiind/DataStructures/DataStructures/iterator
+module github.com/Onlymiind/DataStructures/iterator
 
 go 1.16

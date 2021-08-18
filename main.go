@@ -1,8 +1,9 @@
 package main
 
 import (
-	"custom_list"
 	"fmt"
+
+	"github.com/Onlymiind/DataStructures/list"
 )
 
 func add(lhs int, rhs int) int {
@@ -23,13 +24,9 @@ func Fibonacci(n int) int {
 }
 
 func main() {
-	var a, b int
-	var l custom_list.List
-	l.PushBack(1)
-	plus := add
-	fmt.Scanf("%d", &a);
-	fmt.Scanf("%d", &b);
-	fmt.Println(plus(a, b));
-	plus = addPrint
-	fmt.Print(plus(a,b))
+	l := list.NewIntList()
+	for i := 0; i <= 100; i++ {
+		l.PushBack(i)
+	}
+	fmt.Println(l.String())
 }
