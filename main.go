@@ -28,10 +28,7 @@ func main() {
 	for i := 0; i <= 100; i++ {
 		l.PushBack(i)
 	}
-	// for it := l.Begin(); it != l.End(); it.Inc() {
-	// 	fmt.Println(it.Get())
-	// }
-	it := l.Begin()
-	it.Inc()
-	fmt.Printf("%#v", it.Get())
+	empty := list.NewIntList()
+	fmt.Print(empty.Begin().Equal(empty.End()))
+	fmt.Printf("%T, %#v,  %T, %#v", empty.Begin(), empty.Begin(), empty.End(), empty.End())
 }

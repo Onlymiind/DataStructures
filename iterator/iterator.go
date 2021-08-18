@@ -5,4 +5,5 @@ type Iterator interface {
 	Dec()
 	Get() interface{}
 	Set(interface{})
+	Equal(Iterator) bool
 }

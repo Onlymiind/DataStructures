@@ -28,6 +28,11 @@ func (it *intIterator) Set(val interface{}) {
 	it.Node.Value = value
 }
 
+func (it *intIterator) Equal(other Iterator) bool {
+	other_it := other.(*intIterator)
+	return it.Node == other.Node
+}
+
 type ListNode struct {
 	Value interface{}
 	Next  *ListNode
@@ -76,7 +81,7 @@ func (list *intList) PushFront(val interface{}) {
 }
 
 func (list *intList) Find(val interface{}) (interface{}, error) {
-	for it := list.Head.Next; it != &list.Head; it = it.Next {
+	for it := list.Begin(); !it.Equal(list.End()); it.Inc() {
 		if it.Value == val {
 			return it.Value, nil
 		}
@@ -117,7 +122,7 @@ func (list *intList) Size() uint64 {
 
 func (list *intList) String() string {
 	var result string
-	for it := list.Begin(); it != list.End(); it.Inc() {
+	for it := list.Begin(); !it.Equal(list.End()); it.Inc() {
 		if it != list.Begin() {
 			result += " "
 		}
