@@ -62,6 +62,7 @@ func NewIntList() List {
 func (list *intList) PushBack(val interface{}) {
 	value := val.(int)
 	temp := &ListNode{Value: value, Next: &list.Head, Prev: list.Head.Prev}
+	list.Head.Prev.Next = temp
 	list.Head.Prev = temp
 	if(list.ElemCount == 0) {
 		list.Head.Next = list.Head.Prev
@@ -71,8 +72,9 @@ func (list *intList) PushBack(val interface{}) {
 
 func (list *intList) PushFront(val interface{}) {
 	value := val.(int)
-
-	list.Head.Next = &ListNode{Value: value, Next: list.Head.Next, Prev: list.Head.Prev}
+	temp := &ListNode{Value: value, Next: list.Head.Next, Prev: list.Head.Prev}
+	list.Head.Next.Prev = temp
+	list.Head.Next = temp
 	if(list.ElemCount == 0) {
 		list.Head.Prev = list.Head.Next
 	}
