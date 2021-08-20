@@ -6,25 +6,25 @@ import (
 	"github.com/Onlymiind/DataStructures/iterator"
 )
 
-type listIterator *listNode
+type listIterator listNode
 
-func (it listIterator) Inc() {
+func (it *listIterator) Inc() {
 	listNode(it).Node = it.Node.Next
 }
 
-func (it listIterator) Dec() {
+func (it *listIterator) Dec() {
 	listNode(it).Node = it.Node.Prev
 }
 
-func (it listIterator) Get() interface{} {
-	return listNode(it).Node.Value
+func (it *listIterator) Get() interface{} {
+	return it.Node.Value
 }
 
-func (it listIterator) Set(val interface{}) {
+func (it *listIterator) Set(val interface{}) {
 	listNode(it).Node.Value = val
 }
 
-func (it listIterator) Equal(other iterator.Iterator) bool {
+func (it *listIterator) Equal(other iterator.Iterator) bool {
 	other_it := other.(*listIterator)
 	return listNode(it).Node == listNode(other_it).Node
 }
