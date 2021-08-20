@@ -9,24 +9,24 @@ import (
 type listIterator *listNode
 
 func (it *listIterator) Inc() {
-	it.Node = it.Node.Next
+	listNode(it).Node = it.Node.Next
 }
 
 func (it *listIterator) Dec() {
-	it.Node = it.Node.Prev
+	listNode(it).Node = it.Node.Prev
 }
 
 func (it *listIterator) Get() interface{} {
-	return it.Node.Value
+	return listNode(it).Node.Value
 }
 
 func (it *listIterator) Set(val interface{}) {
-	it.Node.Value = val
+	listNode(it).Node.Value = val
 }
 
 func (it *listIterator) Equal(other iterator.Iterator) bool {
 	other_it := other.(*listIterator)
-	return it.Node == other_it.Node
+	return listNode(it).Node == listNode(other_it).Node
 }
 
 type listNode struct {
