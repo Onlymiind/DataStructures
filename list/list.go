@@ -1,4 +1,4 @@
-package list
+package listImpl
 
 import (
 	"fmt"
@@ -6,36 +6,33 @@ import (
 	"github.com/Onlymiind/DataStructures/iterator"
 )
 
-type intIterator struct {
-	Node *ListNode
-}
+type listIterator *listNode
 
-func (it *intIterator) Inc() {
+func (it *listIterator) Inc() {
 	it.Node = it.Node.Next
 }
 
-func (it *intIterator) Dec() {
+func (it *listIterator) Dec() {
 	it.Node = it.Node.Prev
 }
 
-func (it *intIterator) Get() interface{} {
+func (it *listIterator) Get() interface{} {
 	return it.Node.Value
 }
 
-func (it *intIterator) Set(val interface{}) {
-	value := val.(int)
-	it.Node.Value = value
+func (it *listIterator) Set(val interface{}) {
+	it.Node.Value = val
 }
 
-func (it *intIterator) Equal(other iterator.Iterator) bool {
-	other_it := other.(*intIterator)
+func (it *listIterator) Equal(other iterator.Iterator) bool {
+	other_it := other.(*listIterator)
 	return it.Node == other_it.Node
 }
 
-type ListNode struct {
+type listNode struct {
 	Value interface{}
-	Next  *ListNode
-	Prev  *ListNode
+	Next  *listNode
+	Prev  *listNode
 }
 
 type List interface {
@@ -51,78 +48,75 @@ type List interface {
 	End() iterator.Iterator
 }
 
-type intList struct {
+type listImpl struct {
 	ElemCount uint64
-	Head ListNode
+	Head listNode
 }
 
-func NewIntList() List {
-	l := new(intList)
+func NewList() List {
+	l := new(listImpl)
 	l.Head.Next = &l.Head
 	l.Head.Prev = &l.Head
 	return l
 }
 
-func (list *intList) PushBack(val interface{}) {
-	value := val.(int)
-	temp := &ListNode{Value: value, Next: &list.Head, Prev: list.Head.Prev}
-	list.Head.Prev.Next = temp
-	list.Head.Prev = temp
-	list.ElemCount++
+func (listImpl *listImpl) PushBack(val interface{}) {
+	temp := &listNode{Value: val, Next: &listImpl.Head, Prev: listImpl.Head.Prev}
+	listImpl.Head.Prev.Next = temp
+	listImpl.Head.Prev = temp
+	listImpl.ElemCount++
 }
 
-func (list *intList) PushFront(val interface{}) {
-	value := val.(int)
-	temp := &ListNode{Value: value, Next: list.Head.Next, Prev: &list.Head}
-	list.Head.Next.Prev = temp
-	list.Head.Next = temp
-	list.ElemCount++
+func (listImpl *listImpl) PushFront(val interface{}) {
+	temp := &listNode{Value: val, Next: listImpl.Head.Next, Prev: &listImpl.Head}
+	listImpl.Head.Next.Prev = temp
+	listImpl.Head.Next = temp
+	listImpl.ElemCount++
 }
 
-func (list *intList) Find(val interface{}) iterator.Iterator {
-	for it := list.Begin(); !it.Equal(list.End()); it.Inc() {
+func (listImpl *listImpl) Find(val interface{}) iterator.Iterator {
+	for it := listImpl.Begin(); !it.Equal(listImpl.End()); it.Inc() {
 		if it.Get() == val {
 			return it
 		}
 	}
-	return list.End()
+	return listImpl.End()
 }
 
-func (list *intList) Begin() iterator.Iterator {
-	return &intIterator{list.Head.Next}
+func (listImpl *listImpl) Begin() iterator.Iterator {
+	return &listIterator{listImpl.Head.Next}
 }
 
-func (list *intList) End() iterator.Iterator {
-	return &intIterator{&list.Head}
+func (listImpl *listImpl) End() iterator.Iterator {
+	return &listIterator{&listImpl.Head}
 }
 
-func (list *intList) Insert(before iterator.Iterator, val interface{}) {
-	pos := before.(*intIterator)
-	value := val.(int)
-	temp := &ListNode{Value: value, Next : pos.Node, Prev : pos.Node.Prev}
+func (listImpl *listImpl) Insert(before iterator.Iterator, val interface{}) {
+	pos := before.(*listIterator)
+	temp := &listNode{Value: val, Next : pos.Node, Prev : pos.Node.Prev}
 	pos.Node.Prev.Next = temp
 }
 
-func (list *intList) Erase(at iterator.Iterator) {
-	pos := at.(*intIterator)
+func (listImpl *listImpl) Erase(at iterator.Iterator) {
+	pos := at.(*listIterator)
 	pos.Node.Prev.Next = pos.Node.Next
 	pos.Node.Next.Prev = pos.Node.Prev
 }
 
-func (list *intList) Clear() {
-	list.Head.Next = &list.Head
-	list.Head.Prev = &list.Head
-	list.ElemCount = 0
+func (listImpl *listImpl) Clear() {
+	listImpl.Head.Next = &listImpl.Head
+	listImpl.Head.Prev = &listImpl.Head
+	listImpl.ElemCount = 0
 }
 
-func (list *intList) Size() uint64 {
-	return list.ElemCount
+func (listImpl *listImpl) Size() uint64 {
+	return listImpl.ElemCount
 }
 
-func (list *intList) String() string {
+func (listImpl *listImpl) String() string {
 	var result string
-	for it := list.Begin(); !it.Equal(list.End()); it.Inc() {
-		if it != list.Begin() {
+	for it := listImpl.Begin(); !it.Equal(listImpl.End()); it.Inc() {
+		if it != listImpl.Begin() {
 			result += " "
 		}
 		result += fmt.Sprintf("%v", it.Get())
