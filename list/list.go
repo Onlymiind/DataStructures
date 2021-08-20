@@ -12,25 +12,28 @@ type listNode struct {
 	Prev  *listNode
 }
 
-func (it *listNode) Inc() {
-	it = it.Next
+type listIterator struct {
+	Node *listNode
 }
 
-func (it *listNode) Dec() {
-	it = it.Prev
+func (it *listIterator) Inc() {
+	it.Node = it.Node.Next
 }
 
-func (it *listNode) Get() interface{} {
-	return it.Value
+func (it *listIterator) Dec() {
+	it.Node = it.Node.Prev
 }
 
-func (it *listNode) Set(val interface{}) {
-	it.Value = val
+func (it *listIterator) Get() interface{} {
+	return it.Node.Value
 }
 
-func (it *listNode) Equal(other iterator.Iterator) bool {
-	other_it := other.(*listNode)
-	return it == other_it
+func (it *listIterator) Set(val interface{}) {
+	it.Node.Value = val
+}
+
+func (it listIterator) Equal(other iterator.Iterator) bool {
+	return it.Node == other.(*listIterator).Node
 }
 
 
@@ -84,21 +87,21 @@ func (l *listImpl) Find(val interface{}) iterator.Iterator {
 }
 
 func (l *listImpl) Begin() iterator.Iterator {
-	return l.Head.Next
+	return &listIterator{l.Head.Next}
 }
 
 func (l *listImpl) End() iterator.Iterator {
-	return &l.Head
+	return &listIterator{&l.Head}
 }
 
 func (l *listImpl) Insert(before iterator.Iterator, val interface{}) {
-	pos := before.(*listNode)
+	pos := before.(*listIterator).Node
 	temp := &listNode{Value: val, Next : pos, Prev : pos.Prev}
 	pos.Prev.Next = temp
 }
 
 func (l *listImpl) Erase(at iterator.Iterator) {
-	pos := at.(*listNode)
+	pos := at.(*listIterator).Node
 	pos.Prev.Next = pos.Next
 	pos.Next.Prev = pos.Prev
 }
