@@ -6,34 +6,34 @@ import (
 	"github.com/Onlymiind/DataStructures/iterator"
 )
 
-type listIterator listNode
-
-func (it *listIterator) Inc() {
-	listNode(it).Node = it.Node.Next
-}
-
-func (it *listIterator) Dec() {
-	listNode(it).Node = it.Node.Prev
-}
-
-func (it *listIterator) Get() interface{} {
-	return it.Node.Value
-}
-
-func (it *listIterator) Set(val interface{}) {
-	listNode(it).Node.Value = val
-}
-
-func (it *listIterator) Equal(other iterator.Iterator) bool {
-	other_it := other.(*listIterator)
-	return listNode(it).Node == listNode(other_it).Node
-}
-
 type listNode struct {
 	Value interface{}
 	Next  *listNode
 	Prev  *listNode
 }
+
+func (it *listNode) Inc() {
+	it = it.Next
+}
+
+func (it *listNode) Dec() {
+	it = it.Prev
+}
+
+func (it *listNode) Get() interface{} {
+	return it.Value
+}
+
+func (it *listNode) Set(val interface{}) {
+	it.Value = val
+}
+
+func (it *listNode) Equal(other iterator.Iterator) bool {
+	other_it := other.(*listNode)
+	return it == other_it
+}
+
+
 
 type List interface {
 	PushBack(interface{})
@@ -60,63 +60,63 @@ func NewList() List {
 	return l
 }
 
-func (listImpl *listImpl) PushBack(val interface{}) {
-	temp := &listNode{Value: val, Next: &listImpl.Head, Prev: listImpl.Head.Prev}
-	listImpl.Head.Prev.Next = temp
-	listImpl.Head.Prev = temp
-	listImpl.ElemCount++
+func (l *listImpl) PushBack(val interface{}) {
+	temp := &listNode{Value: val, Next: &l.Head, Prev: l.Head.Prev}
+	l.Head.Prev.Next = temp
+	l.Head.Prev = temp
+	l.ElemCount++
 }
 
-func (listImpl *listImpl) PushFront(val interface{}) {
-	temp := &listNode{Value: val, Next: listImpl.Head.Next, Prev: &listImpl.Head}
-	listImpl.Head.Next.Prev = temp
-	listImpl.Head.Next = temp
-	listImpl.ElemCount++
+func (l *listImpl) PushFront(val interface{}) {
+	temp := &listNode{Value: val, Next: l.Head.Next, Prev: &l.Head}
+	l.Head.Next.Prev = temp
+	l.Head.Next = temp
+	l.ElemCount++
 }
 
-func (listImpl *listImpl) Find(val interface{}) iterator.Iterator {
-	for it := listImpl.Begin(); !it.Equal(listImpl.End()); it.Inc() {
+func (l *listImpl) Find(val interface{}) iterator.Iterator {
+	for it := l.Begin(); !it.Equal(l.End()); it.Inc() {
 		if it.Get() == val {
 			return it
 		}
 	}
-	return listImpl.End()
+	return l.End()
 }
 
-func (listImpl *listImpl) Begin() iterator.Iterator {
-	return &listIterator{listImpl.Head.Next}
+func (l *listImpl) Begin() iterator.Iterator {
+	return l.Head.Next
 }
 
-func (listImpl *listImpl) End() iterator.Iterator {
-	return &listIterator{&listImpl.Head}
+func (l *listImpl) End() iterator.Iterator {
+	return &l.Head
 }
 
-func (listImpl *listImpl) Insert(before iterator.Iterator, val interface{}) {
-	pos := before.(*listIterator)
-	temp := &listNode{Value: val, Next : pos.Node, Prev : pos.Node.Prev}
-	pos.Node.Prev.Next = temp
+func (l *listImpl) Insert(before iterator.Iterator, val interface{}) {
+	pos := before.(*listNode)
+	temp := &listNode{Value: val, Next : pos, Prev : pos.Prev}
+	pos.Prev.Next = temp
 }
 
-func (listImpl *listImpl) Erase(at iterator.Iterator) {
-	pos := at.(*listIterator)
-	pos.Node.Prev.Next = pos.Node.Next
-	pos.Node.Next.Prev = pos.Node.Prev
+func (l *listImpl) Erase(at iterator.Iterator) {
+	pos := at.(*listNode)
+	pos.Prev.Next = pos.Next
+	pos.Next.Prev = pos.Prev
 }
 
-func (listImpl *listImpl) Clear() {
-	listImpl.Head.Next = &listImpl.Head
-	listImpl.Head.Prev = &listImpl.Head
-	listImpl.ElemCount = 0
+func (l *listImpl) Clear() {
+	l.Head.Next = &l.Head
+	l.Head.Prev = &l.Head
+	l.ElemCount = 0
 }
 
-func (listImpl *listImpl) Size() uint64 {
-	return listImpl.ElemCount
+func (l *listImpl) Size() uint64 {
+	return l.ElemCount
 }
 
-func (listImpl *listImpl) String() string {
+func (l *listImpl) String() string {
 	var result string
-	for it := listImpl.Begin(); !it.Equal(listImpl.End()); it.Inc() {
-		if it != listImpl.Begin() {
+	for it := l.Begin(); !it.Equal(l.End()); it.Inc() {
+		if it != l.Begin() {
 			result += " "
 		}
 		result += fmt.Sprintf("%v", it.Get())
