@@ -46,6 +46,7 @@ type List interface {
 	Erase(iterator.Iterator)
 	Clear()
 	Size() uint64
+	Empty() bool
 	String() string
 	Begin() iterator.Iterator
 	End() iterator.Iterator
@@ -98,12 +99,17 @@ func (l *listImpl) Insert(before iterator.Iterator, val interface{}) {
 	pos := before.(*listIterator).Node
 	temp := &listNode{Value: val, Next : pos, Prev : pos.Prev}
 	pos.Prev.Next = temp
+	pos.Prev = temp
+	l.ElemCount++
 }
 
 func (l *listImpl) Erase(at iterator.Iterator) {
 	pos := at.(*listIterator).Node
 	pos.Prev.Next = pos.Next
 	pos.Next.Prev = pos.Prev
+	if l.ElemCount != 0 {
+		l.ElemCount--
+	}
 }
 
 func (l *listImpl) Clear() {
@@ -116,10 +122,14 @@ func (l *listImpl) Size() uint64 {
 	return l.ElemCount
 }
 
+func (l *listImpl) Empty() bool {
+	return l.Size() == 0
+}
+
 func (l *listImpl) String() string {
 	var result string
 	for it := l.Begin(); !it.Equal(l.End()); it.Inc() {
-		if it != l.Begin() {
+		if !it.Equal(l.Begin()) {
 			result += " "
 		}
 		result += fmt.Sprintf("%v", it.Get())

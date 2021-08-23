@@ -7,13 +7,9 @@ import (
 )
 
 func main() {
-	var x int = 10
-	var i interface{} = x
-	var j interface{} = x
-
-	l := list.NewIntList()
-	l.PushBack("Hey")
-
-	x = 11
-	fmt.Println(x, i, j)
+	l := list.NewList()
+	for i := 0; i < 2; i++ {
+		l.PushBack("Hey")
+	}
+	fmt.Println(l)
 }
