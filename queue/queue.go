@@ -11,13 +11,18 @@ type Queue interface {
 	Empty() bool
 	Size() uint64
 	Capacity() uint64
+	Clear()
 }
 
 type intQueue struct {
 	Elements  []int
 	ElemCount uint64
-	Head uint64
-	Tail uint64
+	Head      uint64
+	Tail      uint64
+}
+
+func NewIntQueue(size uint64) Queue {
+	return &intQueue{make([]int, size), 0, 0, 0}
 }
 
 func (q *intQueue) Enqueue(val interface{}) error {
@@ -37,6 +42,7 @@ func (q *intQueue) Dequeue() error {
 	}
 
 	q.Tail = (q.Tail + 1) % q.Capacity()
+	q.ElemCount--
 	return nil
 }
 
@@ -53,5 +59,9 @@ func (q *intQueue) Capacity() uint64 {
 }
 
 func (q *intQueue) Empty() bool {
-	return q.Head == q.Tail
+	return q.ElemCount == 0
+}
+
+func (q *intQueue) Clear() {
+	q.ElemCount, q.Head, q.Tail = 0, 0, 0
 }
